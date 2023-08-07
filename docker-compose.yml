@@ -1,0 +1,22 @@
+version: '3'
+services:
+  react-app:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - 3000:3000
+    volumes:
+      - /app/node_modules # don't map node_modules to host
+      - .:/app # map current directory to /app in container
+
+  tests:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules # don't map node_modules to host
+      - .:/app # map current directory to /app in container
+    command: ['npm', 'run', 'test']
