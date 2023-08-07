@@ -7,3 +7,13 @@ before_install:
 
 script:
   - docker run -e CI=true traigysmantas/k8-docker-react npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: 'eu-west-1'
+  app: 'k8-docker-react'
+  env: 'K8DockerReact-env'
+  bucket_name: 'elasticbeanstalk-eu-west-1-123456789' # S3 for EB.
+  bucket_path: 'k8-docker-react' # Same as app name.
+  on:
+    branch: master
